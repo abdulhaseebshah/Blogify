@@ -1,20 +1,27 @@
-<?php session_start(); ?>
+<?php
+
+/**
+ * @file
+ */
+
+session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <?php include('includes/head.php'); ?>
+  <?php include 'includes/head.php'; ?>
 </head>
 
 <body>
-  <?php include('includes/header.php'); ?>
+  <?php include 'includes/header.php'; ?>
   <h2 class="title">Explore Blogs</h2>
   <div class="container">
     <?php
-    include("includes/conn.php");
-    $sql = "SELECT * FROM `blogs` ORDER BY id DESC";
-    $result = mysqli_query($con, $sql);
-    while ($row = mysqli_fetch_assoc($result)) {
+    include "includes/conn.php";
+    $sql = "SELECT * FROM blogs ORDER BY id DESC";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
       ?>
       <div class="cards">
         <div class="imgBx">
@@ -31,7 +38,7 @@
             <span>Read More</span>
           </a>
           <span>
-            <?php echo $row['date'] ." - ". $row['time']; ?>
+            <?php echo $row['date'] . " - " . $row['time']; ?>
           </span>
         </div>
       </div>
@@ -39,7 +46,7 @@
     }
     ?>
   </div>
-  <?php include('includes/footer.php'); ?>
+  <?php include 'includes/footer.php'; ?>
 </body>
 
 </html>

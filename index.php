@@ -1,21 +1,29 @@
-<?php session_start(); ?>
+<?php
+
+/**
+ * @file
+ */
+
+session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <?php include('includes/head.php'); ?>
+  <?php include 'includes/head.php'; ?>
 </head>
 
 <body>
-  <?php include('includes/header.php'); ?>
-  <?php include('includes/swiper.php'); ?>
+  <?php include 'includes/header.php'; ?>
+  <?php include 'includes/swiper.php'; ?>
   <h2 class="title">Trending Blogs</h2>
   <div class="container">
     <?php
-    include("includes/conn.php");
-    $sql = "SELECT * FROM `blogs` ORDER BY id DESC LIMIT 6";
-    $result = mysqli_query($con, $sql);
-    while ($row = mysqli_fetch_assoc($result)) {
+    include "includes/conn.php";
+
+    $sql = "SELECT * FROM blogs ORDER BY id DESC LIMIT 6";
+    $stmt = $conn->query($sql);
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+
       ?>
       <div class="cards">
         <div class="imgBx">
@@ -40,7 +48,7 @@
     }
     ?>
   </div>
-  <?php include('includes/footer.php'); ?>
+  <?php include 'includes/footer.php'; ?>
 </body>
 
 </html>

@@ -1,4 +1,9 @@
 <?php
+
+/**
+ * @file
+ */
+
 session_start();
 if (isset($_SESSION['username']) && isset($_SESSION['password'])) {
   ?>
@@ -7,19 +12,21 @@ if (isset($_SESSION['username']) && isset($_SESSION['password'])) {
   <html lang="en">
 
   <head>
-    <?php include('includes/head.php'); ?>
+    <?php include 'includes/head.php'; ?>
   </head>
 
   <body>
-    <?php include('includes/header.php'); ?>
+    <?php include 'includes/header.php'; ?>
     <h2 class="title">My Blogs</h2>
     <div class="my-blogs">
       <?php
-      include("includes/conn.php");
+      include "includes/conn.php";
       $id = $_SESSION['id'];
-      $sql = "SELECT * FROM `blogs` WHERE user_id = $id";
-      $result = mysqli_query($con, $sql);
-      while ($row = mysqli_fetch_assoc($result)) {
+      $sql = "SELECT * FROM blogs WHERE user_id = :id";
+      $stmt = $conn->prepare($sql);
+      $stmt->bindParam(':id', $id);
+      $stmt->execute();
+      while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         ?>
         <div class="cards">
           <div class="imgBx">
@@ -45,7 +52,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['password'])) {
       ?>
 
     </div>
-    <?php include('includes/footer.php'); ?>
+    <?php include 'includes/footer.php'; ?>
   </body>
 
   </html>
