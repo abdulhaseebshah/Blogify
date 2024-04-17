@@ -1,6 +1,6 @@
 -- Adminer 4.8.1 PostgreSQL 16.2 (Debian 16.2-1.pgdg120+2) dump
 
-\connect "blogify";
+-- \connect "blogify";
 
 DROP TABLE IF EXISTS "blogs";
 DROP SEQUENCE IF EXISTS blogs_id_seq;

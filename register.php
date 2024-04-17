@@ -42,8 +42,8 @@
       <button class="btn" type="submit" name="submit"><span>Register</span></button>
       <!-- <input type="submit" name="submit" value="Submit" class="btn"> -->
     </form>
-    <?php include('includes/footer.php'); ?>
   </div>
+  <?php include('includes/footer.php'); ?>
 </body>
 
 </html>

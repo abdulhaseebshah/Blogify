@@ -216,13 +216,13 @@ header .bottom ul li a:hover {
 
 .form-container form input {
   width: 100%;
-  padding: 10px 25px;
+  padding: 10px 18px;
   outline: none;
   border: 1px solid #ccc;
   transition: 0.4s;
 }
 
-input:focus {
+.form-container form input:focus {
   border: 1px solid var(--primary-color) !important;
 }
 
@@ -426,7 +426,7 @@ footer{
   align-items: center;
   padding: 2rem 4rem;
   margin-top: 2rem;
-  border-top: 1px solid #888;
+  border-top: 1px solid #CFCFCF;
   background-color: #fff;
 }
 

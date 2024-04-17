@@ -1,10 +1,6 @@
 <?php
-
-/**
- * @file
- */
-
 session_start();
+ob_start();
 if (isset($_SESSION['username']) && isset($_SESSION['password'])) {
   // If the user is already logged in, you can redirect them to another page
   // header("Location: createBlog.php");
@@ -47,9 +43,10 @@ if (isset($_SESSION['username']) && isset($_SESSION['password'])) {
           $stmt->bindParam(':time', $time);
 
           if ($stmt->execute()) {
-            echo "Blog Post Successfully";
+            // echo "Blog Post Successfully";
             header("location: myBlogs.php");
-            exit();
+            ob_end_flush();
+            // exit();
           }
           else {
             echo "Blog Post Is Failed" . mysqli_error($con);
