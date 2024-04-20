@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+ob_start();
 /**
  * @file
  */
@@ -38,7 +38,8 @@ else {
       $_SESSION['username'] = $row['username'];
       $_SESSION['password'] = $row['password'];
       $_SESSION['id'] = $row['id'];
-      // header("Location: myBlogs.php");.
+      header("Location: myBlogs.php");
+      ob_end_flush();
       exit();
     }
     else {

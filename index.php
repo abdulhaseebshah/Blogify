@@ -20,10 +20,14 @@ session_start(); ?>
     <?php
     include "includes/conn.php";
 
-    $sql = "SELECT * FROM blogs ORDER BY id DESC LIMIT 6";
-    $stmt = $conn->query($sql);
-    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    $sql = "SELECT blogs.*, users.username
+    FROM blogs
+    JOIN users ON blogs.user_id = users.id
+    ORDER BY blogs.id DESC LIMIT 6";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
 
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
       ?>
       <div class="cards">
         <div class="imgBx">
@@ -40,7 +44,7 @@ session_start(); ?>
             <span>Read More</span>
           </a>
           <span>
-            <?php echo $row['date']; ?>
+            <?php echo 'created by: <b>' . $row['username'] . '</b> on: ' . $row['date'] . " - " . $row['time']; ?>
           </span>
         </div>
       </div>

@@ -8,7 +8,8 @@ $host = 'pg';
 // PostgreSQL port.
 $port = '5432';
 // Database name.
-$dbname = 'postgres';
+// $dbname = 'postgres';
+$dbname = 'blogify';
 // PostgreSQL username.
 $user = 'root';
 // PostgreSQL password (if any)
