@@ -1,13 +1,19 @@
+<?php
+/**
+ * @file
+ */
+ob_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <?php include('includes/head.php'); ?>
+  <?php include 'includes/head.php'; ?>
 </head>
 
 <body>
-  <?php include('includes/header.php');
-  include('includes/conn.php');
+  <?php include 'includes/header.php';
+  include 'includes/conn.php';
 
   if (isset($_POST['submit'])) {
     $user = $_POST['username'];
@@ -15,20 +21,27 @@
     $password = $_POST['password'];
     if (strlen($user) < 5) {
       echo "Username should not be less than 5";
-    } elseif (strlen($user) >= 8) {
+    }
+    elseif (strlen($user) >= 8) {
       echo "Username should not be more than 8 charcter";
-    } elseif (strlen($password) < 8) {
+    }
+    elseif (strlen($password) < 8) {
       echo "Password must be exactly 8 digits long.";
-    } else {
-      $sql = "INSERT INTO `user` (`username`, `email`, `password`) VALUES ('$user' ,'$email', '$password')";
-      $result = mysqli_query($con, $sql);
-      if ($result) {
+    }
+    else {
+      $sql = "INSERT INTO users (username, email, password) VALUES (:username, :email, :password)";
+      $stmt = $conn->prepare($sql);
+      $stmt->bindParam(':username', $user);
+      $stmt->bindParam(':email', $email);
+      $stmt->bindParam(':password', $password);
+      if ($stmt->execute()) {
         echo "Registretion successfully";
-        header("Location:login.php");
-      } else {
-        echo "Error: " . mysqli_error($con);
+        header("Location:blogs.php");
+        ob_end_flush();
       }
-      mysqli_close($con);
+      else {
+        echo "Error inserting record: " . $stmt->errorInfo()[2];
+      }
     }
   }
 
@@ -43,7 +56,7 @@
       <!-- <input type="submit" name="submit" value="Submit" class="btn"> -->
     </form>
   </div>
-  <?php include('includes/footer.php'); ?>
+  <?php include 'includes/footer.php'; ?>
 </body>
 
 </html>
